@@ -11,6 +11,10 @@ struct ComposeView: UIViewControllerRepresentable {
 }
 
 struct ContentView: View {
+    init() {
+        AppModulesKt.doInitKoin()
+    }
+
     var body: some View {
         ComposeView()
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
