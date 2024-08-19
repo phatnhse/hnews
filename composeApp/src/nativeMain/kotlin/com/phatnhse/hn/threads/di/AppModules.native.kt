@@ -9,5 +9,3 @@ actual val platformModule: Module
     get() = module {
         single { getDatabase() }
     }
-actual val client: HttpClient
-    get() = TODO("Not yet implemented")

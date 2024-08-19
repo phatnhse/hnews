@@ -3,7 +3,6 @@ package com.phatnhse.hn.threads
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.phatnhse.hn.threads.di.initKoin
 
 class Application : Application() {
     companion object {
