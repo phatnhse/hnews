@@ -11,9 +11,9 @@ struct ComposeView: UIViewControllerRepresentable {
 }
 
 struct ContentView: View {
-    init() {
-        AppModulesKt.doInitKoin()
-    }
+//    init() {
+//        AppModulesKt.doInitKoin()
+//    }
 
     var body: some View {
         ComposeView()
