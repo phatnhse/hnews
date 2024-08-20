@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val commonModules = module {
     viewModel<AppViewModel> {
-        AppViewModel(get(), get())
+        AppViewModel(get(), get(), get())
     }
 
     single {

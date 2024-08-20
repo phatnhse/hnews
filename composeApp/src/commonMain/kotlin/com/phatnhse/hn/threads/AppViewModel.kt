@@ -2,6 +2,7 @@ package com.phatnhse.hn.threads
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.testing.datasource.HackerNewsRemoteDataSource
 import com.phatnhse.hn.threads.database.AppDatabase
 import com.phatnhse.hn.threads.database.entity.News
 import io.ktor.client.HttpClient
@@ -18,6 +19,7 @@ import kotlinx.coroutines.withContext
 class AppViewModel(
     private val database: AppDatabase,
     private val httpClient: HttpClient,
+    private val hackerNewsRemoteDataSource: HackerNewsRemoteDataSource,
 ) : ViewModel() {
 
     private val _ui: MutableStateFlow<List<News>> = MutableStateFlow(listOf())
@@ -60,9 +62,11 @@ class AppViewModel(
     fun request() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val response = httpClient.get("https://ktor.io/docs/")
-                val result = response.bodyAsText()
-                _response.emit(result.substring(20) + "${++counter}" + httpClient.hashCode())
+//                val response = httpClient.get("https://ktor.io/docs/")
+//                val result = response.bodyAsText()
+//                _response.emit(result.substring(20) + "${++counter}" + httpClient.hashCode())
+                val response = hackerNewsRemoteDataSource.getNews()
+                _response.emit(response.toString())
             }
         }
     }
