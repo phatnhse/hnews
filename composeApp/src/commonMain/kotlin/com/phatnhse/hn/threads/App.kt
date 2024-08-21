@@ -1,18 +1,20 @@
 package com.phatnhse.hn.threads
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.phatnhse.hn.news.di.networkModule
 import com.phatnhse.hn.threads.di.commonModules
 import com.phatnhse.hn.threads.di.platformModule
-import io.ktor.client.HttpClient
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -32,8 +34,6 @@ fun App() {
 fun AppContent(
     viewModel: AppViewModel = koinViewModel<AppViewModel>()
 ) {
-    val httpClient: HttpClient = koinInject<HttpClient>()
-
     MaterialTheme {
         Column {
             Button(
@@ -41,17 +41,26 @@ fun AppContent(
                     viewModel.request()
                 }
             ) {
-                val text = viewModel.response.collectAsState().value.ifEmpty {
-                    httpClient.hashCode().toString()
-                }
-                Text(text)
+                Text("Click 1")
             }
 
             Button(
-                onClick = {}
+                onClick = {
+                    viewModel.request1()
+                }
             ) {
-                Text(viewModel.ui.collectAsState().value.toString())
+                Text("Click 1")
             }
+
+            Text(viewModel.response.collectAsState().value)
+        }
+
+        if (viewModel.showProgressBar.collectAsState().value) {
+            CircularProgressIndicator(
+                modifier = Modifier.width(64.dp),
+                color = MaterialTheme.colors.secondary,
+                backgroundColor = MaterialTheme.colors.surface,
+            )
         }
     }
 }

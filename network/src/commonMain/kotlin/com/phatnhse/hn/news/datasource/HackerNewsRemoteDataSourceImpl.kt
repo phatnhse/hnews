@@ -9,8 +9,8 @@ import io.ktor.client.request.url
 internal class HackerNewsRemoteDataSourceImpl(
     private val httpClient: HttpClient,
 ) : HackerNewsRemoteDataSource {
-    override suspend fun getTopStories(): List<Story> {
-        return emptyList()
+    override suspend fun getTopStories(): List<Long> {
+        return httpClient.get("topstories.json").body()
     }
 
     override suspend fun getStory(storyId: String): Story {
