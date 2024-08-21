@@ -6,7 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.example.testing.di.networkModules
+import com.phatnhse.hn.news.di.networkModule
 import com.phatnhse.hn.threads.di.commonModules
 import com.phatnhse.hn.threads.di.platformModule
 import io.ktor.client.HttpClient
@@ -20,7 +20,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Preview
 fun App() {
     KoinApplication(application = {
-        modules(commonModules, networkModules, platformModule)
+        modules(commonModules, networkModule, platformModule)
     }) {
         AppContent()
     }

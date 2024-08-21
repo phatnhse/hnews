@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
+            implementation(project(":network"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

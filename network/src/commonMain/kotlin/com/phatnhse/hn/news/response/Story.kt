@@ -1,5 +1,8 @@
 package com.phatnhse.hn.news.response
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Story(
     val by: String,
     val descendants: Int,
