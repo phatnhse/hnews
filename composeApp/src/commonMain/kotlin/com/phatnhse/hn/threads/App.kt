@@ -1,18 +1,21 @@
 package com.phatnhse.hn.threads
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.example.testing.di.networkModules
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.phatnhse.hn.news.di.networkModule
 import com.phatnhse.hn.threads.di.commonModules
 import com.phatnhse.hn.threads.di.platformModule
-import io.ktor.client.HttpClient
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -20,7 +23,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Preview
 fun App() {
     KoinApplication(application = {
-        modules(commonModules, networkModules, platformModule)
+        modules(commonModules, networkModule, platformModule)
     }) {
         AppContent()
     }
@@ -32,26 +35,19 @@ fun App() {
 fun AppContent(
     viewModel: AppViewModel = koinViewModel<AppViewModel>()
 ) {
-    val httpClient: HttpClient = koinInject<HttpClient>()
-
     MaterialTheme {
-        Column {
-            Button(
-                onClick = {
-                    viewModel.request()
-                }
-            ) {
-                val text = viewModel.response.collectAsState().value.ifEmpty {
-                    httpClient.hashCode().toString()
-                }
-                Text(text)
-            }
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState())
+        ) {
+            Text(viewModel.response.collectAsState().value)
+        }
 
-            Button(
-                onClick = {}
-            ) {
-                Text(viewModel.ui.collectAsState().value.toString())
-            }
+        if (viewModel.showProgressBar.collectAsState().value) {
+            CircularProgressIndicator(
+                modifier = Modifier.width(64.dp),
+                color = MaterialTheme.colors.secondary,
+                backgroundColor = MaterialTheme.colors.surface,
+            )
         }
     }
 }
