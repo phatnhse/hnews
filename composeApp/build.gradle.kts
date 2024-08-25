@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
+            implementation(libs.kotlin.datetime)
             implementation(project(":network"))
         }
         desktopMain.dependencies {

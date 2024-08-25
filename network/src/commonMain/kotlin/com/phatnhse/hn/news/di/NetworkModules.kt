@@ -1,7 +1,7 @@
 package com.phatnhse.hn.news.di
 
-import com.phatnhse.hn.news.datasource.HackerNewsRemoteDataSource
-import com.phatnhse.hn.news.datasource.HackerNewsRemoteDataSourceImpl
+import com.phatnhse.hn.news.datasource.HnRemoteDataSource
+import com.phatnhse.hn.news.datasource.HnRemoteDataSourceImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -50,8 +50,8 @@ val networkModule = module {
         }
     }
 
-    factory<HackerNewsRemoteDataSource> {
-        HackerNewsRemoteDataSourceImpl(get())
+    factory<HnRemoteDataSource> {
+        HnRemoteDataSourceImpl(get())
     }
 
 
