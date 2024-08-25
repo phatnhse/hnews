@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
 
 class AppViewModel(
     private val newsNetworkDataSource: HnRemoteDataSource
@@ -21,20 +20,13 @@ class AppViewModel(
     private val _showProgressBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showProgressBar = _showProgressBar.asStateFlow()
 
-    fun request() {
-
-    }
-
     fun request1() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _showProgressBar.emit(true)
-                val a = Clock.System.now()
-                val response = newsNetworkDataSource.getTopStoriesConcurent()
-                val b = Clock.System.now()
-                _response.emit((b - a).toString() + " " + response.toString().take(20))
+                val response = newsNetworkDataSource.getTopStories()
+                _response.emit(response.toString())
                 _showProgressBar.emit(false)
-
             }
         }
     }

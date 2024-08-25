@@ -38,18 +38,10 @@ fun AppContent(
         Column {
             Button(
                 onClick = {
-                    viewModel.request()
-                }
-            ) {
-                Text("Click 1")
-            }
-
-            Button(
-                onClick = {
                     viewModel.request1()
                 }
             ) {
-                Text("Click 1")
+                Text("Request news")
             }
 
             Text(viewModel.response.collectAsState().value)

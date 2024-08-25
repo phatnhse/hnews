@@ -1,6 +1,7 @@
 package com.phatnhse.hn.news.datasource
 
 import com.phatnhse.hn.news.response.HnStoryResponse
+import com.phatnhse.hn.news.util.retryFetch
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -16,7 +17,13 @@ internal class HnRemoteDataSourceImpl(
         private const val PER_PAGE = 20
     }
 
-    override suspend fun getTopStoriesConcurent(): List<HnStoryResponse> = coroutineScope {
+    override suspend fun getTopStories(): List<HnStoryResponse> {
+        return retryFetch {
+            getTopStoriesConcurrent()
+        } ?: emptyList()
+    }
+
+    private suspend fun getTopStoriesConcurrent(): List<HnStoryResponse> = coroutineScope {
         val topStoryIds = getTopStoryIds()
 
         topStoryIds.take(PER_PAGE).map { itemId ->

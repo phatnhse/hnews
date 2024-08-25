@@ -9,5 +9,5 @@ import kotlin.jvm.JvmInline
 value class HnItemId(val id: Long)
 
 interface HnRemoteDataSource {
-    suspend fun getTopStoriesConcurent(): List<HnStoryResponse>
+    suspend fun getTopStories(): List<HnStoryResponse>
 }
