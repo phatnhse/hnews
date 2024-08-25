@@ -2,7 +2,8 @@ package com.phatnhse.hn.threads
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -35,15 +36,9 @@ fun AppContent(
     viewModel: AppViewModel = koinViewModel<AppViewModel>()
 ) {
     MaterialTheme {
-        Column {
-            Button(
-                onClick = {
-                    viewModel.request1()
-                }
-            ) {
-                Text("Request news")
-            }
-
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState())
+        ) {
             Text(viewModel.response.collectAsState().value)
         }
 

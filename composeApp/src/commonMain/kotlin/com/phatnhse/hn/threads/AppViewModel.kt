@@ -20,7 +20,7 @@ class AppViewModel(
     private val _showProgressBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showProgressBar = _showProgressBar.asStateFlow()
 
-    fun request1() {
+    init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _showProgressBar.emit(true)

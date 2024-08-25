@@ -14,7 +14,7 @@ internal class HnRemoteDataSourceImpl(
 ) : HnRemoteDataSource {
 
     companion object {
-        private const val PER_PAGE = 20
+        private const val PER_PAGE = 50
     }
 
     override suspend fun getTopStories(): List<HnStoryResponse> {
