@@ -31,11 +31,11 @@ internal class HnRemoteDataSourceImpl(
         }.awaitAll()
     }
 
-    private suspend fun getStoryDetails(storyId: HnItemId): HnStoryResponse {
-        return httpClient.get("item/${storyId.value}.json").body()
+    private suspend fun getStoryDetails(storyId: Long): HnStoryResponse {
+        return httpClient.get("item/${storyId}.json").body()
     }
 
-    private suspend fun getTopStoryIds(): List<HnItemId> {
+    private suspend fun getTopStoryIds(): List<Long> {
         return httpClient.get("topstories.json").body()
     }
 }

@@ -2,16 +2,23 @@ package com.phatnhse.hn.threads.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.phatnhse.hn.threads.database.dao.NewsDao
-import com.phatnhse.hn.threads.database.entity.News
+import androidx.room.TypeConverters
+import com.phatnhse.hn.threads.database.converter.HnIdListTypeConverter
+import com.phatnhse.hn.threads.database.dao.HnItemDao
+import com.phatnhse.hn.threads.database.entity.HnComment
+import com.phatnhse.hn.threads.database.entity.HnItem
 
 private const val DATABASE_VERSION = 1
 const val DATABASE_NAME = "hn_threads"
 
-@Database(entities = [News::class], version = DATABASE_VERSION)
+@Database(
+    entities = [HnItem::class, HnComment::class],
+    version = DATABASE_VERSION
+)
+@TypeConverters(HnIdListTypeConverter::class)
 abstract class AppDatabase : RoomDatabase(), ClearAllTables {
 
-    abstract fun newsDao(): NewsDao
+    abstract fun hnItemDao(): HnItemDao
 
     override fun clearAllTables() {
         //
