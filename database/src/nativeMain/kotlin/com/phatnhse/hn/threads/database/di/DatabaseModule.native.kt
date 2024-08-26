@@ -1,30 +1,26 @@
-package com.phatnhse.hn.threads
+package com.phatnhse.hn.threads.database.di
 
 import androidx.room.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.room.RoomDatabase
 import com.phatnhse.hn.threads.database.AppDatabase
 import com.phatnhse.hn.threads.database.DATABASE_NAME
 import com.phatnhse.hn.threads.database.instantiateImpl
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-actual fun getDatabase(): AppDatabase {
+actual fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
     return createRoomDatabase()
 }
 
-fun createRoomDatabase(): AppDatabase {
-    val dbFile = "${fileDirectory()}/${DATABASE_NAME}"
+fun createRoomDatabase(): RoomDatabase.Builder<AppDatabase> {
+    val dbFile = "${fileDirectory()}/$DATABASE_NAME"
     return Room.databaseBuilder<AppDatabase>(
         name = dbFile,
         factory = { AppDatabase::class.instantiateImpl() }
-    ).setDriver(BundledSQLiteDriver())
-        .setQueryCoroutineContext(Dispatchers.IO)
-        .build()
+    )
 }
 
 @OptIn(ExperimentalForeignApi::class)
