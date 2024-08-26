@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class News(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Long,
     val title: String,
 )

@@ -7,8 +7,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -35,9 +33,6 @@ kotlin {
     sourceSets {
         val desktopMain by getting
 
-        sourceSets.commonMain {
-            kotlin.srcDir("build/generated/ksp/metadata")
-        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -57,6 +52,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.kotlin.datetime)
             implementation(project(":network"))
+            implementation(project(":database"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -109,7 +105,6 @@ android {
     }
     dependencies {
         debugImplementation(compose.uiTooling)
-
     }
 }
 
@@ -122,19 +117,5 @@ compose.desktop {
             packageName = "com.phatnhse.hn.threads"
             packageVersion = "1.0.0"
         }
-    }
-}
-
-dependencies {
-    add("kspCommonMainMetadata", libs.androidx.room.compiler)
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

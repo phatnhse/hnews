@@ -6,7 +6,7 @@ import kotlin.jvm.JvmInline
 
 @JvmInline
 @Serializable
-value class HnItemId(val id: Long)
+value class HnItemId(val value: Long)
 
 interface HnRemoteDataSource {
     suspend fun getTopStories(): List<HnStoryResponse>
