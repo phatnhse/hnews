@@ -2,7 +2,7 @@ package com.phatnhse.hn.threads
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.phatnhse.hn.threads.database.entity.HackerNewItem
+import com.phatnhse.hn.threads.database.entity.HnewsItem
 import com.phatnhse.hn.threads.repo.HackerNewsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +15,7 @@ class AppViewModel(
     private val repositoryImpl: HackerNewsRepository,
 ) : ViewModel() {
 
-    val feedState: StateFlow<List<HackerNewItem>> =
+    val feedState: StateFlow<List<HnewsItem>> =
         repositoryImpl.getTopStories()
             .stateIn(
                 scope = viewModelScope,

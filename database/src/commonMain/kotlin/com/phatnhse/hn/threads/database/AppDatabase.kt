@@ -1,30 +1,27 @@
 package com.phatnhse.hn.threads.database
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
-import com.phatnhse.hn.threads.database.converter.HackerNewsIdListTypeConverter
+import com.phatnhse.hn.threads.database.converter.RoomListConverters
 import com.phatnhse.hn.threads.database.dao.HackerNewsDao
-import com.phatnhse.hn.threads.database.entity.HackerNewItem
-import com.phatnhse.hn.threads.database.entity.HackerNewsStory
+import com.phatnhse.hn.threads.database.entity.HnewsItem
 
 private const val DATABASE_VERSION = 1
-const val DATABASE_NAME = "hackernews"
+const val DATABASE_NAME = "hnews"
 
 @Database(
-    entities = [HackerNewItem::class, HackerNewsStory::class],
+    entities = [HnewsItem::class],
     version = DATABASE_VERSION
 )
-@TypeConverters(HackerNewsIdListTypeConverter::class)
-abstract class AppDatabase : RoomDatabase(), ClearAllTables {
+@TypeConverters(RoomListConverters::class)
+@ConstructedBy(MyConstructor::class)
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun hackerNewsDao(): HackerNewsDao
-
-    override fun clearAllTables() {
-        //
-    }
 }
 
-interface ClearAllTables {
-    fun clearAllTables()
-}
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object MyConstructor : RoomDatabaseConstructor<AppDatabase>

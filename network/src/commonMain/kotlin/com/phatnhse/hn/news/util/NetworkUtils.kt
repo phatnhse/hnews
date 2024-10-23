@@ -17,9 +17,6 @@ private const val RETRY_TIMES_DEFAULT = 3
 private const val RETRY_WINDOW_TIME = 5_000L
 private const val DEFAULT_TIME_OUT = 30_000L
 
-/**
- * Implement non-linear retry function with increment window times, 5 - 10 - 15 for each retry.
- */
 suspend fun <T> retryFetch(retryTimes: Int = RETRY_TIMES_DEFAULT, block: suspend () -> T): T? {
     for (i in 0 until retryTimes) {
         try {

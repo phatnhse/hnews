@@ -3,8 +3,7 @@ package com.phatnhse.hn.threads.repo
 import com.phatnhse.hn.news.datasource.HnRemoteDataSource
 import com.phatnhse.hn.news.response.HnStoryResponse
 import com.phatnhse.hn.threads.database.AppDatabase
-import com.phatnhse.hn.threads.database.entity.HackerNewItem
-import com.phatnhse.hn.threads.database.entity.HackerNewsStory
+import com.phatnhse.hn.threads.database.entity.HnewsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -20,22 +19,20 @@ class HackerNewsRepositoryImpl(
         withContext(Dispatchers.IO) {
             val topStories = hnRemoteDataSource.getTopStories(30)
                 .filter {
-                    it.dead == false || it.deleted == false
+                    it.dead == true || it.deleted == true
                 }
             val items = topStories.map { it.toHackerNewItem() }
-            val stories = topStories.map { it.toHackerNewsStory() }
             appDatabase.hackerNewsDao().insertItems(items)
-            appDatabase.hackerNewsDao().insertStories(stories)
         }
     }
 
-    override fun getTopStories(): Flow<List<HackerNewItem>> {
-        return appDatabase.hackerNewsDao().getTopStories(30)
+    override fun getTopStories(): Flow<List<HnewsItem>> {
+        return appDatabase.hackerNewsDao().getTopStories()
             .flowOn(Dispatchers.IO)
     }
 }
 
-private fun HnStoryResponse.toHackerNewItem() = HackerNewItem(
+private fun HnStoryResponse.toHackerNewItem() = HnewsItem(
     id = id,
     title = title,
     url = url.orEmpty(),
@@ -46,10 +43,4 @@ private fun HnStoryResponse.toHackerNewItem() = HackerNewItem(
     descendants = descendants ?: 0,
     kids = kids ?: emptyList(),
     text = text.orEmpty()
-)
-
-private fun HnStoryResponse.toHackerNewsStory() = HackerNewsStory(
-    id = 0,
-    itemId = id,
-    time = time
 )

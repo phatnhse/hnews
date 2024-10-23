@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "items"
 )
-data class HackerNewItem(
+data class HnewsItem(
     @PrimaryKey
     val id: Long,
     val by: String,

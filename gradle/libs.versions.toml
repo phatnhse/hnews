@@ -3,7 +3,7 @@ agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.1"
+androidx-activityCompose = "1.9.3"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.13.1"
@@ -13,19 +13,20 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.6.11"
 junit = "4.13.2"
-kotlin = "2.0.10"
+kotlin = "2.0.21"
 coroutines = "1.9.0-RC"
-androidxRoom = "2.7.0-alpha01"
+androidxRoom = "2.7.0-alpha10"
 sqlite = "2.5.0-SNAPSHOT"
-ksp = "2.0.0-1.0.23"
+ksp = "2.0.21-1.0.25"
 koin = "3.6.0-Beta4"
 koinCompose = "3.6.0-Beta4"
 koinComposeMultiplatform = "1.2.0-Beta4"
 ktor = "2.3.12"
-jetbrainsKotlinJvm = "2.0.10"
+jetbrainsKotlinJvm = "2.0.21"
 kermit = "2.0.4"
 kotlinDatetime = "0.6.1"
-androidXStartup = "1.1.1"
+androidXStartup = "1.2.0"
+kotlinxSerializationJson = "1.7.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -63,6 +64,7 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinDatetime" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 
 [plugins]
